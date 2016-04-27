@@ -1,7 +1,6 @@
 package me.wonwoo.aspect;
 
 import org.springframework.cglib.core.KeyFactory;
-import org.springframework.cglib.proxy.Callback;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
