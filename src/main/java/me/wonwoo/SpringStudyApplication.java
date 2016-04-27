@@ -41,7 +41,7 @@ public class SpringStudyApplication {
     System.out.println("비동기");
 //    stringFuture.get();
     System.out.println("end");
-    run.close();
+//    run.close();
 	}
 
   @Bean
