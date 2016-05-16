@@ -20,12 +20,12 @@ public class AsyncBean {
     return new AsyncResult<>("return");
   }
 
-@Async
-public void get(Handler<String> handler) throws InterruptedException {
-  System.out.println("sleep start");
-  //오래 걸리는 작업 혹은 데이터베이스 조회
-  TimeUnit.SECONDS.sleep(3);
-  System.out.println("sleep end");
-  handler.handle("return");
-}
+  @Async
+  public void get(Handler<String> handler) throws InterruptedException {
+    System.out.println("sleep start");
+    //오래 걸리는 작업 혹은 데이터베이스 조회
+    TimeUnit.SECONDS.sleep(3);
+    System.out.println("sleep end");
+    handler.handle("return");
+  }
 }

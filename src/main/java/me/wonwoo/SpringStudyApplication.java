@@ -13,14 +13,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @SpringBootApplication
-@EnableAsync
+//@EnableAsync
 public class SpringStudyApplication {
 
 	public static void main(String[] args) throws ExecutionException, InterruptedException {
 		ConfigurableApplicationContext run = SpringApplication.run(SpringStudyApplication.class, args);
-		AsyncBean asyncBean = run.getBean(AsyncBean.class);
-
-    List<Future<String>> futures = new ArrayList<>();
+//		AsyncBean asyncBean = run.getBean(AsyncBean.class);
+//
+//    List<Future<String>> futures = new ArrayList<>();
 
 //    for(int i = 0; i < 100; i++){
 //      Future<String> stringFuture = bean.get();
@@ -37,16 +37,16 @@ public class SpringStudyApplication {
 //    });
 
 //    asyncBean.get(i -> System.out.println(i));
-    Future<String> stringFuture = asyncBean.get();
-    System.out.println("비동기");
+//    Future<String> stringFuture = asyncBean.get();
+//    System.out.println("비동기");
 //    stringFuture.get();
-    System.out.println("end");
+//    System.out.println("end");
 //    run.close();
 	}
-
-  @Bean
-  public AsyncBean factoryBean(){
-    return new AsyncBean();
-  }
+//
+//  @Bean
+//  public AsyncBean factoryBean(){
+//    return new AsyncBean();
+//  }
 }
 
