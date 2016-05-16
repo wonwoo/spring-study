@@ -18,21 +18,21 @@ public class AccountService {
   private AccountRepository accountRepository;
 
   @Transactional(readOnly = false)
-  public Account save(Account account){
+  public Account save(Account account) {
 
     boolean currentTransactionReadOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
     System.out.println(currentTransactionReadOnly);
     String currentTransactionName = TransactionSynchronizationManager.getCurrentTransactionName();
     System.out.println(currentTransactionName);
     Account save = accountRepository.save(account);
-    if(true){
-      throw new RuntimeException();
-    }
+//    if(true){
+//      throw new RuntimeException();
+//    }
     return save;
   }
 
   @Transactional(readOnly = true)
-  public Account save1(Account account){
+  public Account save1(Account account) {
     boolean currentTransactionReadOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
     String currentTransactionName = TransactionSynchronizationManager.getCurrentTransactionName();
     System.out.println(currentTransactionName);
@@ -45,6 +45,6 @@ public class AccountService {
 //    if(true){
 //      throw new RuntimeException();
 //    }
-    return save(account);
+    return accountRepository.save(account);
   }
 }
