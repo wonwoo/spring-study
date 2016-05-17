@@ -31,7 +31,7 @@ public class AccountService {
     return save;
   }
 
-  @Transactional(readOnly = true)
+  @Transactional
   public Account save1(Account account) {
     boolean currentTransactionReadOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
     String currentTransactionName = TransactionSynchronizationManager.getCurrentTransactionName();
@@ -45,6 +45,7 @@ public class AccountService {
 //    if(true){
 //      throw new RuntimeException();
 //    }
-    return accountRepository.save(account);
+    Account save = accountRepository.save(account);
+    return save;
   }
 }

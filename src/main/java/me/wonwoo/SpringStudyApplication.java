@@ -1,20 +1,30 @@
 package me.wonwoo;
 
-import me.wonwoo.async.AsyncBean;
+import me.wonwoo.jpa.tx.JpaTransactionManager;
+import me.wonwoo.jpa.tx.OpenEntityManagerInViewInterceptorTx;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.annotation.EnableAsync;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 @SpringBootApplication
 //@EnableAsync
 public class SpringStudyApplication {
+
+
+	@Bean
+	public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
+		return new JpaTransactionManager(entityManagerFactory);
+	}
+
+	@Bean
+	public OpenEntityManagerInViewInterceptorTx openEntityManagerInViewInterceptor(){
+		return new OpenEntityManagerInViewInterceptorTx();
+	}
 
 	public static void main(String[] args) throws ExecutionException, InterruptedException {
 		ConfigurableApplicationContext run = SpringApplication.run(SpringStudyApplication.class, args);
