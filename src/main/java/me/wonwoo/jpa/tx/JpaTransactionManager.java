@@ -264,6 +264,7 @@ public class JpaTransactionManager extends AbstractPlatformTransactionManager
     return txObject;
   }
 
+  //isExistingTransaction 있으면 기존꺼?
   @Override
   protected boolean isExistingTransaction(Object transaction) {
     return ((JpaTransactionObject) transaction).hasTransaction();

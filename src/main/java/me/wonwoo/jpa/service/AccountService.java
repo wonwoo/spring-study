@@ -46,6 +46,9 @@ public class AccountService {
 //      throw new RuntimeException();
 //    }
     Account save = accountRepository.save(account);
+    Account account1 = new Account();
+    account1.setName("kevin");
+    Account save1 = accountRepository.save(account1);
     return save;
   }
 }
