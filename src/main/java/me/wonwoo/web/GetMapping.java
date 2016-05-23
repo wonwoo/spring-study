@@ -1,6 +1,5 @@
 package me.wonwoo.web;
 
-import lombok.Data;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,7 +9,7 @@ import java.lang.annotation.*;
 /**
  * Created by wonwoo on 2016. 5. 23..
  */
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @RequestMapping(method = RequestMethod.GET)
