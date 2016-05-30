@@ -4,10 +4,9 @@ import me.wonwoo.jpa.tx.JpaTransactionManager;
 import me.wonwoo.jpa.tx.OpenEntityManagerInViewInterceptorTx;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.AsyncRestTemplate;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.concurrent.ExecutionException;
 
@@ -15,19 +14,24 @@ import java.util.concurrent.ExecutionException;
 //@EnableAsync
 public class SpringStudyApplication {
 
+  @Bean
+  public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+    return new JpaTransactionManager(entityManagerFactory);
+  }
 
-	@Bean
-	public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
-		return new JpaTransactionManager(entityManagerFactory);
-	}
+  @Bean
+  public OpenEntityManagerInViewInterceptorTx openEntityManagerInViewInterceptor() {
+    return new OpenEntityManagerInViewInterceptorTx();
+  }
 
-	@Bean
-	public OpenEntityManagerInViewInterceptorTx openEntityManagerInViewInterceptor(){
-		return new OpenEntityManagerInViewInterceptorTx();
-	}
+  @Bean
+  public AsyncRestTemplate asyncRestTemplate() {
+    AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
+    return asyncRestTemplate;
+  }
 
-	public static void main(String[] args) throws ExecutionException, InterruptedException {
-		ConfigurableApplicationContext run = SpringApplication.run(SpringStudyApplication.class, args);
+  public static void main(String[] args) throws ExecutionException, InterruptedException {
+    SpringApplication.run(SpringStudyApplication.class, args);
 //		AsyncBean asyncBean = run.getBean(AsyncBean.class);
 //
 //    List<Future<String>> futures = new ArrayList<>();
@@ -52,7 +56,7 @@ public class SpringStudyApplication {
 //    stringFuture.get();
 //    System.out.println("end");
 //    run.close();
-	}
+  }
 //
 //  @Bean
 //  public AsyncBean factoryBean(){
