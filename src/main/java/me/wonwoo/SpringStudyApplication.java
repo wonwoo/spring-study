@@ -1,7 +1,12 @@
 package me.wonwoo;
 
+import me.wonwoo.event.EmailEventListener;
+import me.wonwoo.event.Publisher;
+import me.wonwoo.event.SmsEventListener;
 import me.wonwoo.jpa.tx.JpaTransactionManager;
 import me.wonwoo.jpa.tx.OpenEntityManagerInViewInterceptorTx;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +33,30 @@ public class SpringStudyApplication {
   public AsyncRestTemplate asyncRestTemplate() {
     AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
     return asyncRestTemplate;
+  }
+  @Bean
+  public EmailEventListener emailEventListener(){
+    return new EmailEventListener();
+  }
+  @Bean
+  public SmsEventListener smsEventListener(){
+    return new SmsEventListener();
+  }
+  @Bean
+  public Publisher publisher(){
+    return new Publisher();
+  }
+
+  @Autowired
+  private Publisher publisher;
+
+
+  @Bean
+  public CommandLineRunner commandLineRunner(){
+    return args -> {
+      publisher.publish("hello");
+      publisher.publish("hello123");
+    };
   }
 
   public static void main(String[] args) throws ExecutionException, InterruptedException {
