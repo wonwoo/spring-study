@@ -1,22 +1,25 @@
 package me.wonwoo;
 
-import me.wonwoo.event.EmailEventListener;
-import me.wonwoo.event.Publisher;
-import me.wonwoo.event.SmsEventListener;
+import javafx.application.Application;
+import me.wonwoo.event.*;
 import me.wonwoo.jpa.tx.JpaTransactionManager;
 import me.wonwoo.jpa.tx.OpenEntityManagerInViewInterceptorTx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.AsyncRestTemplate;
 
 import javax.persistence.EntityManagerFactory;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 @SpringBootApplication
-//@EnableAsync
+@EnableAsync
 public class SpringStudyApplication {
 
   @Bean
@@ -34,33 +37,63 @@ public class SpringStudyApplication {
     AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
     return asyncRestTemplate;
   }
+//  @Bean
+//  public EmailEventListener emailEventListener(){
+//    return new EmailEventListener();
+//  }
+//  @Bean
+//  public SmsEventListener smsEventListener(){
+//    return new SmsEventListener();
+//  }
+//  @Bean
+//  public Publisher publisher(){
+//    return new Publisher();
+//  }
+//
+//  @Autowired
+//  private Publisher publisher;
+
+
   @Bean
-  public EmailEventListener emailEventListener(){
-    return new EmailEventListener();
-  }
-  @Bean
-  public SmsEventListener smsEventListener(){
-    return new SmsEventListener();
-  }
-  @Bean
-  public Publisher publisher(){
-    return new Publisher();
+  public EmailService emailService(){
+    EmailService emailService = new EmailService();
+    emailService.setBlackList(Arrays.asList("test@test.com", "wonwoo@test.com", "5151@test.com"));
+    return emailService;
   }
 
-  @Autowired
-  private Publisher publisher;
-
+  @Bean
+  public BlackListNotifier blackListNotifier(){
+    BlackListNotifier blackListNotifier = new BlackListNotifier();
+    blackListNotifier.setNotificationAddress("admin@test.com");
+    return blackListNotifier;
+  }
 
   @Bean
-  public CommandLineRunner commandLineRunner(){
-    return args -> {
-      publisher.publish("hello");
-      publisher.publish("hello123");
-    };
+  public BlackLogNotifier blackLogNotifier(){
+    return new BlackLogNotifier();
   }
+  @Bean
+  public AnnotationListener annotationListener(){
+    AnnotationListener annotationListener = new AnnotationListener();
+    annotationListener.setNotificationAddress("admin@test.com");
+    return annotationListener;
+  }
+
+
+//  @Bean
+//  public CommandLineRunner commandLineRunner(){
+//    return args -> {
+//      publisher.publish("hello");
+//      publisher.publish("hello123");
+//    };
+//  }
 
   public static void main(String[] args) throws ExecutionException, InterruptedException {
-    SpringApplication.run(SpringStudyApplication.class, args);
+    ApplicationContext run = SpringApplication.run(SpringStudyApplication.class, args);
+    EmailService bean = run.getBean(EmailService.class);
+    bean.sendEmail("wonwoo@test.com", "hi wonwoo");
+    System.out.println("tet123");
+
 //		AsyncBean asyncBean = run.getBean(AsyncBean.class);
 //
 //    List<Future<String>> futures = new ArrayList<>();
