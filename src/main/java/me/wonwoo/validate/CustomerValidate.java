@@ -25,8 +25,6 @@ public class CustomerValidate implements Validator {
       errors.rejectValue("age", "too.darn.old");
     }
     System.out.println(customer);
-    ValidationUtils.rejectIfEmpty(errors, "age", "age required");
-    ValidationUtils.rejectIfEmpty(errors, "name", "id required");
-
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "name.required", "Name is required!");
   }
 }

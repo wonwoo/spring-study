@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = MobilePhoneValidator.class)
 public @interface MobilePhone {
 
-  String message() default "{mobilePhone}";
+  String message() default "{me.wonwoo.validate.mobilePhone.message}";
 
   Class<?>[] groups() default {};
 
