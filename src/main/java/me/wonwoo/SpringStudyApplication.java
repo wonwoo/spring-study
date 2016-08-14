@@ -1,15 +1,15 @@
 package me.wonwoo;
 
-import javafx.application.Application;
-import me.wonwoo.event.*;
+import me.wonwoo.event.AnnotationListener;
+import me.wonwoo.event.BlackListNotifier;
+import me.wonwoo.event.BlackLogNotifier;
+import me.wonwoo.event.EmailService;
 import me.wonwoo.jpa.tx.JpaTransactionManager;
 import me.wonwoo.jpa.tx.OpenEntityManagerInViewInterceptorTx;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.client.AsyncRestTemplate;
@@ -20,6 +20,7 @@ import java.util.concurrent.ExecutionException;
 
 @SpringBootApplication
 @EnableAsync
+@EnableCaching
 public class SpringStudyApplication {
 
   @Bean
@@ -55,25 +56,26 @@ public class SpringStudyApplication {
 
 
   @Bean
-  public EmailService emailService(){
+  public EmailService emailService() {
     EmailService emailService = new EmailService();
     emailService.setBlackList(Arrays.asList("test@test.com", "wonwoo@test.com", "5151@test.com"));
     return emailService;
   }
 
   @Bean
-  public BlackListNotifier blackListNotifier(){
+  public BlackListNotifier blackListNotifier() {
     BlackListNotifier blackListNotifier = new BlackListNotifier();
     blackListNotifier.setNotificationAddress("admin@test.com");
     return blackListNotifier;
   }
 
   @Bean
-  public BlackLogNotifier blackLogNotifier(){
+  public BlackLogNotifier blackLogNotifier() {
     return new BlackLogNotifier();
   }
+
   @Bean
-  public AnnotationListener annotationListener(){
+  public AnnotationListener annotationListener() {
     AnnotationListener annotationListener = new AnnotationListener();
     annotationListener.setNotificationAddress("admin@test.com");
     return annotationListener;
@@ -119,7 +121,8 @@ public class SpringStudyApplication {
 //    System.out.println("end");
 //    run.close();
   }
-//
+
+  //
 //  @Bean
 //  public AsyncBean factoryBean(){
 //    return new AsyncBean();
