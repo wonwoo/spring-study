@@ -13,9 +13,9 @@ import java.io.IOException;
 @RestControllerAdvice
 public class TestAdvice {
 
-  @ExceptionHandler(Exception.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public String handleDuplicateKeyException(Exception e) throws IOException {
-    return "exception";
-  }
+//  @ExceptionHandler(Exception.class)
+//  @ResponseStatus(HttpStatus.BAD_REQUEST)
+//  public String handleDuplicateKeyException(Exception e) throws IOException {
+//    return "exception";
+//  }
 }

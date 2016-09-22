@@ -12,6 +12,10 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.AsyncRestTemplate;
 
 import javax.persistence.EntityManagerFactory;
@@ -21,17 +25,20 @@ import java.util.concurrent.ExecutionException;
 @SpringBootApplication
 @EnableAsync
 @EnableCaching
+@EnableAuthorizationServer
+@EnableResourceServer
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringStudyApplication {
 
-  @Bean
-  public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-    return new JpaTransactionManager(entityManagerFactory);
-  }
-
-  @Bean
-  public OpenEntityManagerInViewInterceptorTx openEntityManagerInViewInterceptor() {
-    return new OpenEntityManagerInViewInterceptorTx();
-  }
+//  @Bean
+//  public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+//    return new JpaTransactionManager(entityManagerFactory);
+//  }
+//
+//  @Bean
+//  public OpenEntityManagerInViewInterceptorTx openEntityManagerInViewInterceptor() {
+//    return new OpenEntityManagerInViewInterceptorTx();
+//  }
 
   @Bean
   public AsyncRestTemplate asyncRestTemplate() {
@@ -92,9 +99,9 @@ public class SpringStudyApplication {
 
   public static void main(String[] args) throws ExecutionException, InterruptedException {
     ApplicationContext run = SpringApplication.run(SpringStudyApplication.class, args);
-    EmailService bean = run.getBean(EmailService.class);
-    bean.sendEmail("wonwoo@test.com", "hi wonwoo");
-    System.out.println("tet123");
+//    EmailService bean = run.getBean(EmailService.class);
+//    bean.sendEmail("wonwoo@test.com", "hi wonwoo");
+//    System.out.println("tet123");
 
 //		AsyncBean asyncBean = run.getBean(AsyncBean.class);
 //

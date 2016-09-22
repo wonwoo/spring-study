@@ -27,13 +27,13 @@ public class CustomerController {
 //    dataBinder.setValidator(customerValidate);
 //  }
 
-  @PostMapping("/validTest/{id}")
-  public void save(@RequestBody @Valid Customer customer, BindingResult bindingResult){
-    if(bindingResult.hasErrors()){
-      FieldError fieldError = bindingResult.getFieldError();
-      throw new RuntimeException(fieldError.getDefaultMessage());
-    }
-  }
+//  @PostMapping("/validTest/{id}")
+//  public void save(@RequestBody @Valid Customer customer, BindingResult bindingResult){
+//    if(bindingResult.hasErrors()){
+//      FieldError fieldError = bindingResult.getFieldError();
+//      throw new RuntimeException(fieldError.getDefaultMessage());
+//    }
+//  }
 
 //  @PostMapping("/validTest1")
 //  public void save1(@RequestBody Customer customer, BindingResult bindingResult){
